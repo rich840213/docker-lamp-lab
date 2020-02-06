@@ -1,0 +1,30 @@
+version: '3.7'
+
+services:
+
+  web:
+    build: apache/
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - mysql
+
+  mysql:
+    build: mysql/
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
