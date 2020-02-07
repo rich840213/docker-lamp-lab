@@ -9,6 +9,8 @@ services:
       - 80:80
     depends_on:
       - mysql
+    volumes:
+      - ./apache/www:/var/www/html
 
   mysql:
     build: mysql/
@@ -19,7 +21,8 @@ services:
       MYSQL_ROOT_PASSWORD: admin
   
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    build: phpmyadmin/
+#    image: phpmyadmin/phpmyadmin
     ports:
       - "8080:80"
     restart: always
